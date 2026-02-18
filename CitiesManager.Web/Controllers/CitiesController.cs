@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CitiesManager.Web.DatabaseContext;
@@ -10,6 +11,10 @@ namespace CitiesManager.Web.Controllers
     public class CitiesController(ApplicationDbContext context) : ControllerBase
     {
         // GET: api/Cities
+        /// <summary>
+        /// To get list of cities(including cityId and cityName) from the database
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<City>>> GetCities()
         {
@@ -71,7 +76,7 @@ namespace CitiesManager.Web.Controllers
             context.Cities.Add(city);
             await context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCity", new { id = city.CityId }, city);
+            return CreatedAtAction("GetCity", new { cityId = city.CityId }, city);
         }
 
         // DELETE: api/Cities/5
